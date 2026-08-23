@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Una historia romántica hecha para recordar momentos, fotos y palabras especiales.">
+  <meta name="theme-color" content="#7b334a">
+
+  <meta property="og:title" content="Para mi Pirbull">
+  <meta property="og:description" content="Una pequeña historia digital de Pirbull y Oso, llena de recuerdos, frases y momentos especiales.">
+  <meta property="og:image" content="images/preview.jpg">
+  <meta property="og:type" content="website">
+
+  <title>Para mi Pirbull</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#historia">Saltar al contenido</a>
+
+  <main id="inicio">
+    <section class="hero" aria-label="Portada">
+      <img class="hero__image" src="images/foto-01.jpeg" alt="Fotografía principal de Pirbull y Oso">
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <p class="eyebrow">Una pequeña sorpresa</p>
+        <h1>Para <span data-config="nombreElla">mi Pirbull</span></h1>
+        <p class="hero__text">Oso tiene algo que quiere recordarte, despacito, como se guardan las cosas importantes.</p>
+        <button class="button button--light" id="startExperience" type="button">Abrir nuestra historia</button>
+      </div>
+    </section>
+
+    <div class="music-player" aria-label="Controles de música">
+      <button class="music-player__toggle" id="musicToggle" type="button" aria-label="Reproducir música">♪</button>
+      <label class="music-player__volume">
+        <span>Volumen</span>
+        <input id="volumeControl" type="range" min="0" max="1" step="0.05" value="0.45" aria-label="Control de volumen">
+      </label>
+      <audio id="loveSong" preload="none"></audio>
+    </div>
+
+    <section class="story-intro section" id="historia">
+      <div class="section__inner split">
+        <div class="media-card reveal slide-left">
+          <img src="images/foto-02.jpeg" alt="Primer recuerdo de Pirbull y Oso" loading="lazy">
+        </div>
+        <div class="copy reveal slide-right">
+          <p class="eyebrow">Un comienzo bonito</p>
+          <h2>Cómo empezó todo</h2>
+          <p>A veces una persona llega a tu vida sin avisar, y termina convirtiéndose en alguien que jamás quisieras perder.</p>
+          <p>Esta página es una forma pequeña de decirte, Pirbull, que cada recuerdo contigo tiene un lugar bonito en la memoria de Oso.</p>
+        </div>
+      </div>
+      <button class="secret-heart secret-heart--one" type="button" data-secret="1" aria-label="Mensaje secreto escondido">♡</button>
+    </section>
+
+    <section class="timeline-section section">
+      <div class="section__inner">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Recuerdos que siguen creciendo</p>
+          <h2>Nuestra historia</h2>
+        </div>
+        <div class="timeline" id="timeline" aria-live="polite"></div>
+      </div>
+      <button class="secret-heart secret-heart--two" type="button" data-secret="2" aria-label="Mensaje secreto escondido">♡</button>
+    </section>
+
+    <section class="gallery-section section">
+      <div class="section__inner">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Fotos con alma</p>
+          <h2>Galería de recuerdos</h2>
+        </div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <section class="moments-section section" id="momentos">
+      <div class="section__inner">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Instantes especiales</p>
+          <h2>Momentos que guardo</h2>
+        </div>
+        <div class="moments" id="moments"></div>
+      </div>
+      <button class="secret-heart secret-heart--three" type="button" data-secret="3" aria-label="Mensaje secreto escondido">♡</button>
+    </section>
+
+    <section class="reasons-section section">
+      <div class="section__inner">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Una lista incompleta</p>
+          <h2>10 razones por las que te amo</h2>
+        </div>
+        <div class="reasons-grid" id="reasons"></div>
+      </div>
+    </section>
+
+    <section class="miss-section section">
+      <div class="section__inner narrow reveal">
+        <p class="eyebrow">Para los días de distancia</p>
+        <h2>Cuando me extrañes...</h2>
+        <button class="button" id="missButton" type="button">Presiona aquí</button>
+        <p class="miss-message" id="missMessage" aria-live="polite">Tengo muchas cosas bonitas para recordarte.</p>
+      </div>
+      <button class="secret-heart secret-heart--four" type="button" data-secret="4" aria-label="Mensaje secreto escondido">♡</button>
+    </section>
+
+    <section class="counter-section section">
+      <div class="section__inner narrow reveal">
+        <p class="eyebrow">Nuestro tiempo</p>
+        <h2>Llevamos juntos</h2>
+        <div class="counter" id="counter" aria-live="polite">
+          <span><strong id="yearsTogether">0</strong> años</span>
+          <span><strong id="monthsTogether">0</strong> meses</span>
+          <span><strong id="daysTogether">0</strong> días</span>
+        </div>
+        <p>y todavía quiero muchos más contigo.</p>
+      </div>
+    </section>
+
+    <section class="letter-section section">
+      <div class="section__inner narrow reveal">
+        <p class="eyebrow">Una carta</p>
+        <h2>Tengo algo más que decirte...</h2>
+        <button class="envelope" id="openLetter" type="button" aria-expanded="false" aria-controls="letterBody">
+          <span class="envelope__flap"></span>
+          <span class="envelope__body">Abrir carta</span>
+        </button>
+        <article class="letter" id="letterBody" hidden>
+          <p>Mi Pirbull,</p>
+          <p>No sé exactamente en qué momento te convertiste en una parte tan importante de mi vida...</p>
+          <p>Pero sé que cada recuerdo contigo tiene algo especial, algo que Oso guarda con cariño.</p>
+          <p>Gracias por cada sonrisa, cada conversación, cada abrazo y cada momento que hemos compartido.</p>
+          <p>Si pudiera volver a vivir muchas cosas, volvería a elegir coincidir contigo, volvería a elegir esta historia de Pirbull y Oso.</p>
+          <p>Te amo mucho.</p>
+          <p>Con amor,<br><span data-config="nombreMio">Oso</span></p>
+        </article>
+      </div>
+      <button class="secret-heart secret-heart--five" type="button" data-secret="5" aria-label="Mensaje secreto escondido">♡</button>
+    </section>
+
+    <section class="finale" aria-label="Final">
+      <img src="images/foto-26.jpeg" alt="Fotografía final bonita de Pirbull y Oso" loading="lazy">
+      <div class="finale__overlay"></div>
+      <div class="finale__content reveal">
+        <p class="eyebrow">Continuará</p>
+        <h2>Y esto no termina aquí...</h2>
+        <p>Porque todavía nos quedan muchas fotos, muchos viajes, muchas risas, muchos abrazos y muchos recuerdos por crear, mi Pirbull.</p>
+        <button class="button button--light" id="backToTop" type="button">Volver al inicio</button>
+      </div>
+      <button class="secret-heart secret-heart--six" type="button" data-secret="6" aria-label="Mensaje secreto escondido">♡</button>
+      <button class="secret-heart secret-heart--seven" type="button" data-secret="7" aria-label="Mensaje secreto escondido">♡</button>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+    <button class="lightbox__close" id="closeLightbox" type="button" aria-label="Cerrar foto">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="prevPhoto" type="button" aria-label="Foto anterior">‹</button>
+    <figure class="lightbox__figure">
+      <img id="lightboxImage" src="images/foto-03.jpeg" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="nextPhoto" type="button" aria-label="Foto siguiente">›</button>
+  </div>
+
+  <div class="secret-toast" id="secretToast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
