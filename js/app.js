@@ -177,11 +177,13 @@ function buildGallery() {
   $$(".polaroid").forEach((button) => {
     button.addEventListener("click", () => {
       createPhotoSparkles(button, 12);
+      createLoveBurst(button, 8);
       openLightbox(Number(button.dataset.index));
     });
     button.addEventListener("touchstart", () => {
       button.classList.add("is-tapped");
       createPhotoSparkles(button, 8);
+      createLoveBurst(button, 5);
       window.setTimeout(() => button.classList.remove("is-tapped"), 420);
     }, { passive: true });
   });
@@ -248,6 +250,7 @@ function setupExperienceStart() {
   $("#startExperience").addEventListener("click", () => {
     $("#historia").scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
     createFloatingHearts();
+    createLoveBurst($("#startExperience"), 12);
     prepareAudio();
   });
 
@@ -259,15 +262,41 @@ function setupExperienceStart() {
 function createFloatingHearts() {
   if (prefersReducedMotion) return;
 
-  for (let index = 0; index < 18; index += 1) {
+  for (let index = 0; index < 28; index += 1) {
     const heart = document.createElement("span");
     heart.className = "floating-heart";
     heart.textContent = "♡";
     heart.style.setProperty("--x", `${Math.random() * 94 + 3}%`);
-    heart.style.setProperty("--size", `${Math.random() * 14 + 14}px`);
-    heart.style.setProperty("--duration", `${Math.random() * 1.9 + 3.2}s`);
-    heart.style.setProperty("--drift", `${Math.random() * 80 - 40}px`);
-    heart.style.animationDelay = `${index * 80}ms`;
+    heart.style.setProperty("--size", `${Math.random() * 28 + 22}px`);
+    heart.style.setProperty("--duration", `${Math.random() * 2.3 + 4.2}s`);
+    heart.style.setProperty("--drift", `${Math.random() * 130 - 65}px`);
+    heart.style.animationDelay = `${index * 55}ms`;
+    document.body.appendChild(heart);
+    heart.addEventListener("animationend", () => heart.remove());
+  }
+}
+
+function createLoveBurst(element, amount = 8) {
+  if (prefersReducedMotion) return;
+
+  const rect = element.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  for (let index = 0; index < amount; index += 1) {
+    const heart = document.createElement("span");
+    const angle = (Math.PI * 2 * index) / amount + Math.random() * 0.55;
+    const distance = 70 + Math.random() * 110;
+    heart.className = "big-love-heart";
+    heart.textContent = index % 3 === 0 ? "❤" : "♡";
+    heart.style.setProperty("--x", `${centerX}px`);
+    heart.style.setProperty("--y", `${centerY}px`);
+    heart.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
+    heart.style.setProperty("--dy", `${Math.sin(angle) * distance - 70}px`);
+    heart.style.setProperty("--size", `${Math.random() * 22 + 34}px`);
+    heart.style.setProperty("--duration", `${Math.random() * 420 + 1200}ms`);
+    heart.style.setProperty("--rotate", `${Math.random() * 80 - 40}deg`);
+    heart.style.animationDelay = `${index * 24}ms`;
     document.body.appendChild(heart);
     heart.addEventListener("animationend", () => heart.remove());
   }
@@ -279,7 +308,7 @@ function createPhotoSparkles(element, amount = 8) {
   const rect = element.getBoundingClientRect();
   if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
-  const symbols = ["♡", "✦", "·"];
+  const symbols = ["♡", "❤", "✦", "♡"];
   for (let index = 0; index < amount; index += 1) {
     const spark = document.createElement("span");
     spark.className = "photo-spark";
@@ -288,7 +317,7 @@ function createPhotoSparkles(element, amount = 8) {
     spark.style.setProperty("--y", `${rect.top + rect.height * (0.12 + Math.random() * 0.76)}px`);
     spark.style.setProperty("--dx", `${Math.random() * 90 - 45}px`);
     spark.style.setProperty("--dy", `${-34 - Math.random() * 76}px`);
-    spark.style.setProperty("--size", `${Math.random() * 10 + 11}px`);
+    spark.style.setProperty("--size", `${Math.random() * 15 + 15}px`);
     spark.style.setProperty("--duration", `${Math.random() * 520 + 900}ms`);
     spark.style.setProperty("--rotate", `${Math.random() * 70 - 35}deg`);
     spark.style.animationDelay = `${index * 28}ms`;
@@ -356,6 +385,7 @@ function setupMissButton() {
     void message.offsetWidth;
     message.textContent = mensajesCuandoMeExtranes[nextIndex];
     message.classList.add("is-changing");
+    createLoveBurst(button, 7);
   });
 }
 
@@ -411,6 +441,7 @@ function openLightbox(index) {
   $("#lightbox").hidden = false;
   document.body.classList.add("lightbox-open");
   createPhotoSparkles($("#lightboxImage"), 14);
+  createLoveBurst($("#lightboxImage"), 12);
   $("#closeLightbox").focus();
 }
 
