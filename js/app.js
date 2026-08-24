@@ -163,8 +163,9 @@ function buildGallery() {
   const gallery = $("#gallery");
   gallery.innerHTML = galeriaRecuerdos.map((item, index) => {
     const tilt = index % 2 === 0 ? "-1.6deg" : "1.4deg";
+    const delay = `${(index % 6) * 70}ms`;
     return `
-      <button class="polaroid reveal" type="button" style="--tilt:${tilt}" data-index="${index}" aria-label="Abrir foto: ${item.frase}">
+      <button class="polaroid reveal" type="button" style="--tilt:${tilt}; --reveal-delay:${delay}" data-index="${index}" aria-label="Abrir foto: ${item.frase}">
         <span class="polaroid__frame">
           <img src="${item.foto}" alt="${item.alt}" loading="lazy">
           <span class="polaroid__caption"><strong>${item.titulo}</strong><br>${item.frase}</span>
@@ -174,9 +175,13 @@ function buildGallery() {
   }).join("");
 
   $$(".polaroid").forEach((button) => {
-    button.addEventListener("click", () => openLightbox(Number(button.dataset.index)));
+    button.addEventListener("click", () => {
+      createPhotoSparkles(button, 12);
+      openLightbox(Number(button.dataset.index));
+    });
     button.addEventListener("touchstart", () => {
       button.classList.add("is-tapped");
+      createPhotoSparkles(button, 8);
       window.setTimeout(() => button.classList.remove("is-tapped"), 420);
     }, { passive: true });
   });
@@ -228,6 +233,9 @@ function setupRevealAnimations() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
+        if (entry.target.matches(".polaroid, .media-card, .timeline-item, .moment")) {
+          createPhotoSparkles(entry.target, entry.target.matches(".polaroid") ? 6 : 9);
+        }
         observer.unobserve(entry.target);
       }
     });
@@ -262,6 +270,30 @@ function createFloatingHearts() {
     heart.style.animationDelay = `${index * 80}ms`;
     document.body.appendChild(heart);
     heart.addEventListener("animationend", () => heart.remove());
+  }
+}
+
+function createPhotoSparkles(element, amount = 8) {
+  if (prefersReducedMotion) return;
+
+  const rect = element.getBoundingClientRect();
+  if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+  const symbols = ["♡", "✦", "·"];
+  for (let index = 0; index < amount; index += 1) {
+    const spark = document.createElement("span");
+    spark.className = "photo-spark";
+    spark.textContent = symbols[index % symbols.length];
+    spark.style.setProperty("--x", `${rect.left + rect.width * (0.15 + Math.random() * 0.7)}px`);
+    spark.style.setProperty("--y", `${rect.top + rect.height * (0.12 + Math.random() * 0.76)}px`);
+    spark.style.setProperty("--dx", `${Math.random() * 90 - 45}px`);
+    spark.style.setProperty("--dy", `${-34 - Math.random() * 76}px`);
+    spark.style.setProperty("--size", `${Math.random() * 10 + 11}px`);
+    spark.style.setProperty("--duration", `${Math.random() * 520 + 900}ms`);
+    spark.style.setProperty("--rotate", `${Math.random() * 70 - 35}deg`);
+    spark.style.animationDelay = `${index * 28}ms`;
+    document.body.appendChild(spark);
+    spark.addEventListener("animationend", () => spark.remove());
   }
 }
 
@@ -378,6 +410,7 @@ function openLightbox(index) {
   renderLightbox();
   $("#lightbox").hidden = false;
   document.body.classList.add("lightbox-open");
+  createPhotoSparkles($("#lightboxImage"), 14);
   $("#closeLightbox").focus();
 }
 
