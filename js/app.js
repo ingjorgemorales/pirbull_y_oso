@@ -19,14 +19,14 @@ const recuerdosTimeline = [
     momento: "Un recuerdo especial",
     titulo: "Más fotos, más complicidad",
     descripcion: "Fuimos llenando los días de risas, miradas, planes y esa forma tan nuestra de cuidarnos.",
-    foto: "images/foto-04.jpeg",
+    foto: "images/foto-10.jpeg",
     alt: "Recuerdo especial de Pirbull y Oso"
   },
   {
     momento: "Lo que seguimos construyendo",
     titulo: "Lo que seguimos construyendo",
     descripcion: "Todavía quedan muchas fotos, muchos abrazos y muchos capítulos de Pirbull y Oso por vivir.",
-    foto: "images/foto-05.jpeg",
+    foto: "images/foto-17.jpeg",
     alt: "Recuerdo reciente de Pirbull y Oso"
   }
 ];
@@ -37,10 +37,10 @@ const galeriaRecuerdos = [
   { foto: "images/foto-02.jpeg", titulo: "Mi lugar bonito", frase: "Hay fotos que no solo se miran: se sienten.", alt: "Recuerdo de Pirbull y Oso" },
   { foto: "images/foto-03.jpeg", titulo: "Ese momento", frase: "Este recuerdo todavía me hace sonreír.", alt: "Recuerdo especial de Pirbull y Oso" },
   { foto: "images/foto-04.jpeg", titulo: "Nosotros", frase: "Contigo, lo sencillo también se vuelve inolvidable.", alt: "Foto juntos" },
-  { foto: "images/foto-05.jpeg", titulo: "Mi Pirbull", frase: "Una foto pequeña para un sentimiento gigante.", alt: "Recuerdo de mi Pirbull" },
+  { foto: "images/oso.jpeg", titulo: "Mi Pirbull", frase: "Una foto pequeña para un sentimiento gigante.", alt: "Recuerdo de mi Pirbull" },
   { foto: "images/foto-06.jpeg", titulo: "Oso feliz", frase: "Me gusta pensar que aquí estábamos creando historia.", alt: "Recuerdo de Oso y Pirbull" },
   { foto: "images/foto-07.jpeg", titulo: "Nuestro mundo", frase: "Hay momentos que no se repiten, pero se quedan.", alt: "Momento especial juntos" },
-  { foto: "images/foto-08.jpeg", titulo: "Tu risa", frase: "Tu risa hace que cualquier lugar se sienta bonito.", alt: "Recuerdo alegre juntos" },
+  { foto: "images/foto-08.jpeg", titulo: "Comida", frase: "Nuestra comida favorita.", alt: "Recuerdo alegre juntos" },
   { foto: "images/foto-09.jpeg", titulo: "Siempre tú", frase: "Uno de esos momentos que quiero recordar siempre.", alt: "Foto especial de Pirbull" },
   { foto: "images/foto-10.jpeg", titulo: "Gracias", frase: "Gracias por existir en mis días.", alt: "Recuerdo de amor" },
   { foto: "images/foto-11.jpeg", titulo: "Complicidad", frase: "Me encanta esa forma nuestra de entendernos sin explicar tanto.", alt: "Recuerdo de complicidad" },
