@@ -135,6 +135,14 @@ let songWasConfigured = false;
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
+function trackEvent(name, params = {}) {
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", name, {
+    page_title: document.title,
+    ...params
+  });
+}
+
 function applyConfig() {
   document.title = `Para ${CONFIG.nombreElla}`;
   $$("[data-config='nombreElla']").forEach((node) => {
@@ -176,6 +184,11 @@ function buildGallery() {
 
   $$(".polaroid").forEach((button) => {
     button.addEventListener("click", () => {
+      const item = galeriaRecuerdos[Number(button.dataset.index)];
+      trackEvent("abrir_foto", {
+        foto_titulo: item?.titulo || "Foto",
+        foto_indice: Number(button.dataset.index) + 1
+      });
       createPhotoSparkles(button, 12);
       createLoveBurst(button, 8);
       openLightbox(Number(button.dataset.index));
@@ -248,6 +261,7 @@ function setupRevealAnimations() {
 
 function setupExperienceStart() {
   $("#startExperience").addEventListener("click", () => {
+    trackEvent("abrir_historia");
     $("#historia").scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
     createFloatingHearts();
     createLoveBurst($("#startExperience"), 12);
@@ -255,6 +269,7 @@ function setupExperienceStart() {
   });
 
   $("#backToTop").addEventListener("click", () => {
+    trackEvent("volver_inicio");
     $("#inicio").scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
   });
 }
@@ -346,6 +361,7 @@ function setupMusic() {
     if (audio.paused) {
       try {
         await audio.play();
+        trackEvent("reproducir_musica");
         toggle.textContent = "❚❚";
         toggle.setAttribute("aria-label", "Pausar música");
       } catch {
@@ -355,6 +371,7 @@ function setupMusic() {
     }
 
     audio.pause();
+    trackEvent("pausar_musica");
     toggle.textContent = "♪";
     toggle.setAttribute("aria-label", "Reproducir música");
   });
@@ -385,6 +402,9 @@ function setupMissButton() {
     void message.offsetWidth;
     message.textContent = mensajesCuandoMeExtranes[nextIndex];
     message.classList.add("is-changing");
+    trackEvent("mensaje_cuando_me_extranes", {
+      mensaje_indice: nextIndex + 1
+    });
     createLoveBurst(button, 7);
   });
 }
@@ -430,6 +450,7 @@ function setupLetter() {
     button.classList.toggle("is-open", willOpen);
     button.setAttribute("aria-expanded", String(willOpen));
     if (willOpen) {
+      trackEvent("abrir_carta");
       letter.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion ? "auto" : "smooth" });
     }
   });
@@ -484,6 +505,9 @@ function setupSecretMessages() {
     button.addEventListener("click", () => {
       const index = Number(button.dataset.secret) - 1;
       const message = mensajesSecretos[index] || mensajesSecretos[0];
+      trackEvent("mensaje_secreto", {
+        mensaje_indice: index + 1
+      });
       showToast(`Encontraste un mensaje secreto: "${message}"`);
       button.style.visibility = "hidden";
     });
